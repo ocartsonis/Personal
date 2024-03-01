@@ -1,7 +1,9 @@
 import requests
 import os
 from os.path import exists
-from cryptography.fernet import Fernet
+import csv
+import secrets
+import webbrowser
 
 # Define the base URL of your backend service
 base_url = 'https://listen-together-sdjm.onrender.com'  # Change this to your actual backend URL
@@ -10,6 +12,7 @@ secret_code = ''
 def authenticate_with_spotify():
     # Send a GET request to the /login endpoint to initiate authentication
     print("pee")
+    generate_secret_code()
     try:
         response = requests.get(f'{base_url}/')
         #print(response)
@@ -17,6 +20,7 @@ def authenticate_with_spotify():
     # Process response data...
     except requests.RequestException as e:
         print("Error:", e)
+    webbrowser.open(f'{base_url}/user/{generate_secret_code()}')
     print("poop")
     # Check if the request was successful (status code 200)
     print(response.status_code)
@@ -27,9 +31,14 @@ def authenticate_with_spotify():
 
 def generate_secret_code():
     #generate a code that is stored in an encrypted file that will be used with requests
-    if os.path.exists() == False:
-        #generate a file that stores the secret code
-
+    if os.path.exists('secret_code.csv') == False:
+        password_length = 13
+        private_key = secrets.token_urlsafe(password_length)
+        with open('secret_code.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(private_key)
+    reader = open('secret_code.csv', 'r')
+    return reader.read()
 
 # Example function to retrieve data from a protected endpoint
 def get_protected_data():
