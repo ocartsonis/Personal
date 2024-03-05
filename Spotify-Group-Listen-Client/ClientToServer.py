@@ -20,7 +20,11 @@ def authenticate_with_spotify():
     # Process response data...
     except requests.RequestException as e:
         print("Error:", e)
-    webbrowser.open(f'{base_url}/user/{generate_secret_code()}')
+
+    global secret_code
+    secret_code = generate_secret_code()
+
+    webbrowser.open(f'{base_url}/user/{secret_code}')
     print("poop")
     # Check if the request was successful (status code 200)
     print(response.status_code)
@@ -53,14 +57,11 @@ def get_protected_data():
         print("Failed to retrieve data.")
 
 # Example function to perform other actions on the backend
-def perform_action():
-    # Send a POST request with data to perform an action on the backend
-    data = {'key': 'value'}  # Example data to send
-    response = requests.post(f'{base_url}/someEndpoint', json=data)
+def create_session(session_name):
+    #FIX THIS BECAUSE DIFFERENCE IN INSTANCES OR SOMETHING
+
+    webbrowser.open(f'{base_url}/hostSession/{session_name}/{secret_code}')
     
     # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        print("Action performed successfully.")
-    else:
-        print("Failed to perform action.")
+    
 

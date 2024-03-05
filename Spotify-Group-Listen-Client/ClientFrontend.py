@@ -60,6 +60,7 @@ class StartSessionPage(tk.Frame):
     def continue_to_next_page(self):
         session_name = self.text_box.get()
         print("Session Name entered:", session_name)
+        cs.create_session(session_name)
         self.controller.show_frame("SessionPage")
 
 class SessionPage(tk.Frame):
