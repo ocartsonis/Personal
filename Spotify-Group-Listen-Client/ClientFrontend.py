@@ -14,7 +14,7 @@ class SampleApp(tk.Tk):
         self.frames = {}
 
         # Define the pages
-        for F in (HomePage, StartSessionPage, StartSessionPage, SessionPage):
+        for F in (HomePage, StartSessionPage, JoinSessionPage, SessionPage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
