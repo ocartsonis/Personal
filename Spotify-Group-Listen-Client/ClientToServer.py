@@ -45,16 +45,9 @@ def generate_secret_code():
     return reader.read()
 
 # Example function to retrieve data from a protected endpoint
-def get_protected_data():
-    # Send a GET request to a protected endpoint (assuming authentication is required)
-    response = requests.get(f'{base_url}/listenTogether')
-    
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        data = response.json()  # Assuming the response contains JSON data
-        print("Data retrieved successfully:", data)
-    else:
-        print("Failed to retrieve data.")
+def join_session(session_name):
+
+    webbrowser.open(f'{base_url}/joinSession/{session_name}/{secret_code}')
 
 # Example function to perform other actions on the backend
 def create_session(session_name):
